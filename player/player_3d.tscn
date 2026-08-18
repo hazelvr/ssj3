@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bj7xaxj4nxjs2"]
+
+[ext_resource type="Script" uid="uid://c0q2bin8ibhsn" path="res://player/player_3d.gd" id="1_nni6y"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_whw7v"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_whw7v"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_whw7v"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nni6y"]
+
+[node name="Player3D" type="CharacterBody3D" unique_id=1678955246]
+script = ExtResource("1_nni6y")
+
+[node name="Skin" type="Node3D" parent="." unique_id=615964213]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=991281588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9994606, 0)
+shape = SubResource("CapsuleShape3D_whw7v")
+
+[node name="testAppearance" type="MeshInstance3D" parent="." unique_id=1700728478]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_whw7v")
+
+[node name="Headtest" type="MeshInstance3D" parent="testAppearance" unique_id=859255107]
+transform = Transform3D(1, 0, 0, 0, -0.06229344, 0.9991373, 0, -1.4987059, -0.04152896, 0.0013437271, 1.4340811, -0.39163035)
+mesh = SubResource("PrismMesh_whw7v")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=673394948]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.8981327, 0.43972456, 0, -0.43972456, 0.8981327, 0, 2.3706229, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=901372068]
+shape = SubResource("SphereShape3D_nni6y")
+spring_length = 8.0
+margin = 0.1
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=708986746]
+unique_name_in_owner = true

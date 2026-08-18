@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://4j67ni8uil4d"]
+
+[ext_resource type="PackedScene" uid="uid://bj7xaxj4nxjs2" path="res://player/player_3d.tscn" id="1_6t4yh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vvqsw"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_6t4yh"]
+sky_material = SubResource("ProceduralSkyMaterial_vvqsw")
+
+[sub_resource type="Environment" id="Environment_ng1ul"]
+background_mode = 2
+sky = SubResource("Sky_6t4yh")
+
+[sub_resource type="BoxMesh" id="BoxMesh_nku4m"]
+size = Vector3(38.53711, 1, 43.230644)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qkimm"]
+size = Vector3(2.812622, 2.2285767, 1)
+
+[node name="Node3D" type="Node3D" unique_id=188105140]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1257968210]
+environment = SubResource("Environment_ng1ul")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1022187200]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=709648710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7285156, 0, 0.7577019)
+visible = false
+mesh = SubResource("BoxMesh_nku4m")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=119453329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.90631104, 1.5726407, 0)
+mesh = SubResource("BoxMesh_qkimm")
+
+[node name="Player3D" parent="." unique_id=1678955246 instance=ExtResource("1_6t4yh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8530865, 0, 4.6848783)
