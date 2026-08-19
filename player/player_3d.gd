@@ -4,14 +4,11 @@ extends CharacterBody3D
 @export_range(0.0, 1.0) var mouse_sensitivity := 0.25
 
 @export_group("Movement")
-@export var move_speed := 8.0
-@export var acceleration := 80.0
+@export var max_speed := 8.0
+@export var acceleration := 40.0
 @export var rotation_speed := 12.0
 
-
-
 var _camera_input_direction := Vector2.ZERO
-var _last_movement_direction := Vector3.BACK
 
 @onready var camera_pivot: Node3D = %CameraPivot
 @onready var camera: Camera3D = %Camera3D
@@ -43,21 +40,17 @@ func _physics_process(delta: float) -> void:
 	
 	_camera_input_direction = Vector2.ZERO
 	
-	var raw_input := Input.get_vector("move_left", "move_right", "move_up", 
-	"move_down")
-	#In Godot, z is the forward direction.
-	var forward := camera.global_basis.z
-	var right := camera.global_basis.x
 	
-	var move_direction := forward * raw_input.y + right * raw_input.x
-	move_direction.y = 0.0
-	move_direction = move_direction.normalized()
+	var input := Input.get_vector("move_left", "move_right", "move_up",
+		"move_down")
+		
+	var rotatedInput := input.rotated(-camera.global_rotation.y)
+	var inputVector : Vector3
 	
-	velocity = velocity.move_toward(move_direction * 
-	move_speed, acceleration * delta)
+	inputVector.x = rotatedInput.x
+	inputVector.y = 0
+	inputVector.z = rotatedInput.y
+	
+	velocity = inputVector * max_speed
 	move_and_slide()
 	
-	if move_direction.length() > 0.2:
-		_last_movement_direction = move_direction
-	var target_angle := Vector3.FORWARD.signed_angle_to(_last_movement_direction, Vector3.UP)
-	test_appearance.global_rotation.y = target_angle
